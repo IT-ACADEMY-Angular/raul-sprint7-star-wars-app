@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'register-component',
+  standalone: true,
   imports: [],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
