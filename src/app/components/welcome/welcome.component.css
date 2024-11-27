@@ -1,0 +1,12 @@
+.custom-lines-home {
+    border-left: solid rgb(100, 100, 100) 1px !important;
+    border-right: solid rgb(100, 100, 100) 1px !important;
+}
+
+.custom-lines-starship {
+    border-right: solid rgb(100, 100, 100) 1px !important;
+}
+
+.active {
+    box-shadow: inset 0px -5px 0px white;
+}

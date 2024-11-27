@@ -1,1 +1,6 @@
-<p>starship-list works!</p>
+<div class="bg-black min-vh-100 py-4">
+    <div *ngFor="let starship of starships" class="w-75 p-4 bg-custom-grey text-white rounded m-auto mb-4">
+        <div class="pb-2 starship-name">{{ starship.name }}</div>
+        <div class="starship-model">{{ starship.model }}</div>
+    </div>
+</div>

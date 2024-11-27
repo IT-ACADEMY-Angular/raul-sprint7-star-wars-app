@@ -1,0 +1,13 @@
+.bg-custom-grey {
+    background-color: rgb(26, 26, 26);
+}
+
+.starship-name {
+    color: rgb(168, 168, 168);
+    font-size: 1.5rem;
+}
+
+.starship-model {
+    color: rgb(133, 133, 133);
+    font-size: 1.1rem;
+}

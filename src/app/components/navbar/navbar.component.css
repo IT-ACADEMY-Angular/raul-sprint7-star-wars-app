@@ -1,0 +1,15 @@
+.logo-centrado {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container-fluid {
+    position: relative;
+}
+
+.div1,
+.div3 {
+    margin-top: -3rem !important;
+    align-self: flex-start !important;
+}
