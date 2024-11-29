@@ -1,59 +1,52 @@
-# StarWarsApp
+# Sprint 7 IT Academy | Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+## 📄 Descripción
 
-## Development server
+Práctica donde el objetivo principal era hacer una App Star Wars con Angular y Bootstrap en maquetación. Utilizando la API de swapi.
 
-To start a local development server, run:
+## 📋 Requisitos
 
+- Npm instalado en tu sistema.
+- Node instalado en tu sistema.
+- Visual Studio Code (Recomendado)
+
+## 🛠️ Instalación
+
+1. Clona este repositorio
 ```bash
-ng serve
+$ git clone https://github.com/IT-ACADEMY-Angular/raul-sprint7-star-wars-app.git
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+2. Unlink el repositorio para no modificar mi trabajo.
 
 ```bash
-ng generate component component-name
+$ git remote rm origin
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. Instalar las dependencias con npm 
 
 ```bash
-ng generate --help
+$ npm install
 ```
 
-## Building
-
-To build the project run:
+4. Inicializar el servidor para ver la web 
 
 ```bash
-ng build
+$ ng serve -o
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 💻 Tecnologías y Recursos Utilizados
 
-## Running unit tests
+- ANGULAR
+- TYPESCRIPT
+- HTML
+- CSS
+- RXJS
+- Routes
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## ✨ Características
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- Cada ejercicio está en un commit.
+- Completados todos los ejercicios que se pedían y los bonus.
+- He creado la maquetación FULL con Bootstrap, menos alguna cosa custom con css.
+- HttpClientModule y InfiniteScrollModule aparecen como deprecateds en Angular 19, siguen funcionando, pero aparecen tachadas.

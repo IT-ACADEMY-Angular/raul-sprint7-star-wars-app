@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,16 @@ export class AppService {
 
   constructor(private http: HttpClient) { }
 
-  getStarships(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  getStarships(url: string = this.apiUrl): Observable<any> {
+    return this.http.get(url).pipe(
+      map((data: any) => ({
+        ...data,
+        results: data.results.map((starship: any) => ({
+          ...starship,
+          id: this.extractIdFromUrl(starship.url),
+        })),
+      }))
+    );
   }
 
   getStarshipById(id: string): Observable<any> {

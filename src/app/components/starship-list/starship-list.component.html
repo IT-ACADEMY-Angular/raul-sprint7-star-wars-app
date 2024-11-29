@@ -1,7 +1,17 @@
-<div class="bg-black min-vh-100 py-4">
-    <div *ngFor="let starship of starships" class="w-75 p-4 bg-custom-grey text-white rounded m-auto mb-4"
-        [routerLink]="['/starship', starship.id]">
-        <div class="pb-2 starship-name">{{ starship.name }}</div>
-        <div class="starship-model">{{ starship.model }}</div>
-    </div>
+<div
+  class="bg-black min-vh-100 py-4"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="300"
+  (scrolled)="onScroll()"
+>
+  <div *ngFor="let starship of starships" class="w-75 p-4 bg-custom-grey text-white rounded m-auto mb-4"
+    [routerLink]="['/starship', starship.id]">
+    <div class="pb-2 starship-name">{{ starship.name }}</div>
+    <div class="starship-model">{{ starship.model }}</div>
+  </div>
+
+  <div class="text-center text-white text-bw" *ngIf="loading">
+    <p>Loading...</p>
+  </div>
 </div>
