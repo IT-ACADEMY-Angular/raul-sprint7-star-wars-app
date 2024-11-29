@@ -1,12 +1,17 @@
 .custom-lines-home {
-    border-left: solid rgb(100, 100, 100) 1px !important;
-    border-right: solid rgb(100, 100, 100) 1px !important;
+    border-left: solid rgb(53, 53, 53) 1px !important;
+    border-right: solid rgb(53, 53, 53) 1px !important;
 }
 
 .custom-lines-starship {
-    border-right: solid rgb(100, 100, 100) 1px !important;
+    border-right: solid rgb(53, 53, 53) 1px !important;
 }
 
 .active {
     box-shadow: inset 0px -5px 0px white;
+}
+
+.border-custom{
+  border-top: solid rgb(53, 53, 53) 1px !important;
+  border-bottom: solid rgb(53, 53, 53) 1px !important;
 }
