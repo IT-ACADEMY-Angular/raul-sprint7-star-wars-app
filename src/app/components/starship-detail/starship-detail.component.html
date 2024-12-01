@@ -1,41 +1,40 @@
 <div class="bg-black min-vh-100 py-4 text-white d-flex justify-content-center pt-5">
-    <div class="container" style="max-width: 90%;">
-        <div class="text-center">
-            <hr class="text-white my-1" />
-            <h2 class="text-start py-2 ps-3">STARSHIP</h2>
-            <hr class="text-white my-1" />
-        </div>
-
-        <div *ngIf="starship" class="row mt-4 gx-0 d-flex align-items-stretch">
-            <div class="col-md-6 text-center">
-                <img [src]="getStarshipImage()" alt="{{ starship.name }}" class="img-fluid rounded-start-4 w-100 h-100"
-                    (error)="onImageError($event)" />
-            </div>
-
-            <div class="col-md-6 d-flex">
-                <div class="p-4 bg-dark text-white w-100 h-100 rounded-0 rounded-end-4"
-                    style="border-left: 3px solid #b95858;">
-
-                    <h1 class="mb-3">{{ starship.name }}</h1>
-                    <p class="mb-4">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat quo temporibus, eveniet
-                        voluptatem aspernatur recusandae ad autem dolorum tempore. Nihil?
-                    </p>
-
-                    <div class="row">
-                        <div class="col-6">
-                            <p><strong>Model:</strong> {{ starship.model }}</p>
-                            <p><strong>Cost in Credits:</strong> {{ starship.cost_in_credits | number: '1.0-0' }}</p>
-                            <p><strong>Atmospheric Speed:</strong> {{ starship.max_atmosphering_speed }}</p>
-                        </div>
-                        <div class="col-6">
-                            <p><strong>Manufacturer:</strong> {{ starship.manufacturer }}</p>
-                            <p><strong>Length:</strong> {{ starship.length }}</p>
-                            <p><strong>Crew:</strong> {{ starship.crew }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container" style="max-width: 90%;">
+    <div class="text-center">
+      <hr class="text-white my-1" />
+      <h2 class="text-start py-2 ps-3">STARSHIP</h2>
+      <hr class="text-white my-1" />
     </div>
+
+    <div *ngIf="starship" class="row mt-4 gx-0 d-flex align-items-stretch">
+      <div class="col-md-6 text-center">
+        <img [src]="getStarshipImage()" alt="{{ starship.name }}"
+          class="img-fluid rounded-start-4 w-100 h-100 custom-img-border" (error)="onImageError($event)" />
+      </div>
+
+      <div class="col-md-6 d-flex">
+        <div class="p-4 bg-dark text-white w-100 h-100 rounded-0 rounded-end-4 custom-border">
+
+          <h1 class="mb-3">{{ starship.name }}</h1>
+          <p class="mb-4">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat quo temporibus, eveniet
+            voluptatem aspernatur recusandae ad autem dolorum tempore. Nihil?
+          </p>
+
+          <div class="row">
+            <div class="col-6">
+              <p><strong>Model:</strong> {{ starship.model }}</p>
+              <p><strong>Cost in Credits:</strong> {{ starship.cost_in_credits | number: '1.0-0' }}</p>
+              <p><strong>Atmospheric Speed:</strong> {{ starship.max_atmosphering_speed }}</p>
+            </div>
+            <div class="col-6">
+              <p><strong>Manufacturer:</strong> {{ starship.manufacturer }}</p>
+              <p><strong>Length:</strong> {{ starship.length }}</p>
+              <p><strong>Crew:</strong> {{ starship.crew }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

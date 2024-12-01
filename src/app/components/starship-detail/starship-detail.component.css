@@ -1,0 +1,8 @@
+.custom-border {
+  border-left: solid 3px #b95858;
+}
+
+.custom-img-border {
+  border: solid 1px grey;
+  border-right: none;
+}

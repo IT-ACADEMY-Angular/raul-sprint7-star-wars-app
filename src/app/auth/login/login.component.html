@@ -1,1 +1,41 @@
-<p>login works!</p>
+<div class="modal fade show d-block"
+  style="background: url('/assets/img/space.png') no-repeat center center/cover; min-height: 100vh;" tabindex="-1">
+
+  <button type="button" class="btn-close custom-close-btn position-fixed top-0 end-0 m-3" (click)="closeModal()"
+    aria-label="Close"></button>
+
+  <div class="logo-centrado pt-5">
+    <img src="assets/img/logoSW.png" alt="Logo Star Wars" class="img-fluid" style="max-height: 80px;">
+  </div>
+
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content border-0 rounded-5 shadow-lg py-5">
+      <h3 class="text-center">MEMBER LOGIN</h3>
+
+      <div class="modal-body px-5">
+        <form (ngSubmit)="onSubmit()">
+
+          <div class="mb-3">
+            <label for="username" class="form-label"></label>
+            <input type="text" id="username" class="form-control" placeholder="E-mail" [(ngModel)]="username"
+              name="username" required />
+          </div>
+
+          <div class="mb-3 pb-5">
+            <label for="password" class="form-label"></label>
+            <input type="password" id="password" class="form-control" placeholder="Password" [(ngModel)]="password"
+              name="password" required />
+          </div>
+
+          <button type="submit" class="btn w-100 white rounded-5 btn-warning py-3">Access</button>
+        </form>
+        <p class="text-center small pt-5">Forgot your password?</p>
+        <p class="text-center small">
+          Don't have an account?
+          <a (click)="navigateToRegister()" class="text-primary text-decoration-underline cursor-pointer">Register
+            here!</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
