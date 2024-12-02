@@ -34,3 +34,9 @@ h3.text-center {
   color: #adadad;
   opacity: 1;
 }
+
+.error-container {
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+}
