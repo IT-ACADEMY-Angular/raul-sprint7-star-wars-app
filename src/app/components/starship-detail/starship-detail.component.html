@@ -1,4 +1,4 @@
-<div class="bg-black min-vh-100 py-4 text-white d-flex justify-content-center pt-5">
+<div class="bg-black  py-4 text-white d-flex justify-content-center pt-5">
   <div class="container" style="max-width: 90%;">
     <div class="text-center">
       <hr class="text-white my-1" />
@@ -6,7 +6,7 @@
       <hr class="text-white my-1" />
     </div>
 
-    <div *ngIf="starship" class="row mt-4 gx-0 d-flex align-items-stretch">
+    <div *ngIf="starship" class="row pt-4 gx-0 d-flex align-items-stretch">
       <div class="col-md-6 text-center">
         <img [src]="getStarshipImage()" alt="{{ starship.name }}"
           class="img-fluid rounded-start-4 w-100 h-100 custom-img-border" (error)="onImageError($event)" />
@@ -38,3 +38,6 @@
     </div>
   </div>
 </div>
+
+<starship-pilots-component *ngIf="starship?.pilots" [pilotUrls]="starship.pilots"></starship-pilots-component>
+<starship-films-component *ngIf="starship?.films" [filmUrls]="starship.films"></starship-films-component>

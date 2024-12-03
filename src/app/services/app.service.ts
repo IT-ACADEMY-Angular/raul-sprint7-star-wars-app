@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
 export class AppService {
 
   private apiUrl = 'https://swapi.dev/api/starships';
-  private imageBaseUrl = 'https://starwars-visualguide.com/assets/img/starships/';
+  private imageBaseUrl = 'https://starwars-visualguide.com/assets/img/';
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +34,42 @@ export class AppService {
   }
 
   getStarshipImageUrl(id: string): string {
-    return `${this.imageBaseUrl}${id}.jpg`;
+    return `${this.imageBaseUrl}starships/${id}.jpg`;
   }
+
+  getFilmsByUrls(urls: string[]): Observable<any[]> {
+    return this.getEntitiesByUrls(urls, 'films');
+  }
+
+  getPilotsByUrls(urls: string[]): Observable<any[]> {
+    return this.getEntitiesByUrls(urls, 'characters');
+  }
+
+  private getEntitiesByUrls(urls: string[], type: string): Observable<any[]> {
+    return new Observable<any[]>((observer) => {
+      const requests = urls.map((url) => this.http.get(url));
+      Promise.all(requests.map((req) => req.toPromise()))
+        .then((entities) => {
+          observer.next(
+            entities.map((entity: any) => ({
+              ...entity,
+              id: this.extractIdFromUrl(entity.url),
+            }))
+          );
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  getFilmImageUrl(id: string): string {
+    return `${this.imageBaseUrl}films/${id}.jpg`;
+  }
+
+  getPilotImageUrl(id: string): string {
+    return `${this.imageBaseUrl}characters/${id}.jpg`;
+  }
+
 }
