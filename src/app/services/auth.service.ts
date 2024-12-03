@@ -21,6 +21,7 @@ export class AuthService {
       this.currentUserSubject.next(user);
     });
   }
+  
   async register(email: string, password: string): Promise<void> {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
@@ -65,5 +66,13 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!this.auth.currentUser;
+  }
+
+  async authStateReady(): Promise<boolean> {
+    return new Promise((resolve) => {
+      this.auth.onAuthStateChanged((user) => {
+        resolve(!!user);
+      });
+    });
   }
 }

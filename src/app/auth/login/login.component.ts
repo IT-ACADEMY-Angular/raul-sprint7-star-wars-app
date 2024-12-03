@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Validations } from '../validations/validations';
@@ -18,14 +18,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   previousUrl: string | null = null;
   errorMessage: string | null = null;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private route: ActivatedRoute,
+  ) {
     this.router.events.subscribe((event) => {
     });
   }
 
   async onSubmit(): Promise<void> {
     this.errorMessage = null;
-
     const emailError = Validations.validateEmail(this.email);
     const passwordError = Validations.validatePassword(this.password);
 
@@ -36,7 +36,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     try {
       await this.authService.login(this.email, this.password);
-      this.router.navigate(['/']);
+
+      const returnUrl = localStorage.getItem('returnUrl') || '/home';
+      localStorage.removeItem('returnUrl');
+
+      this.router.navigate([{ outlets: { modal: null } }]).then(() => {
+        this.router.navigateByUrl(returnUrl);
+      });
     } catch (error: any) {
       this.errorMessage = 'Invalid email or password.';
     }
@@ -44,7 +50,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     document.body.style.overflow = 'hidden';
-    this.previousUrl = this.router.url.split('(modal')[0];
   }
 
   ngOnDestroy(): void {
@@ -52,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   closeModal(): void {
-    this.router.navigateByUrl(this.previousUrl || '/');
+    this.router.navigate([{ outlets: { modal: null } }]);
   }
 
   navigateToRegister(): void {
