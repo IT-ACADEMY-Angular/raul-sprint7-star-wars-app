@@ -24,7 +24,7 @@ export class StarshipFilmsComponent {
 
   private loadFilms(): void {
     this.appService.getFilmsByUrls(this.filmUrls).subscribe(
-      (films) => (this.films = films),
+      (films) => (this.films = films)
     );
   }
 

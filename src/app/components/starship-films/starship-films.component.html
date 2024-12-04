@@ -1,4 +1,4 @@
-<div class="bg-black text-white d-flex justify-content-center pt-5">
+<div class="text-white d-flex justify-content-center pt-5">
   <div class="container" style="max-width: 90%;">
     <div class="text-center">
       <hr class="text-white my-1" />
@@ -6,7 +6,7 @@
       <hr class="text-white my-1" />
     </div>
 
-    <div class="row row-cols-1 row-cols-md-4 g-4 py-3">
+    <div *ngIf="films.length > 0; else noFilms" class="row row-cols-1 row-cols-md-4 g-4 py-3">
       <div *ngFor="let film of films" class="col">
         <div class="card bg-dark text-white rounded-5 h-100">
           <img [src]="getFilmImage(film.id)" class="card-img-top custom-border rounded-top-5" alt="{{ film.title }}" />
@@ -17,5 +17,9 @@
         </div>
       </div>
     </div>
+
+    <ng-template #noFilms>
+      <p class="text-warning fw-bold pt-5">Not found films for this starship.</p>
+    </ng-template>
   </div>
 </div>

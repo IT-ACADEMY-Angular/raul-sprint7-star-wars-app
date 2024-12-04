@@ -1,0 +1,8 @@
+.app-background {
+    background: url('/assets/img/space.png') repeat center center;
+    background-size: auto;
+    min-height: 100vh;
+    height: auto;
+    width: 100%;
+    overflow-x: hidden;
+}

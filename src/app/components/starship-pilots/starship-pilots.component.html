@@ -1,4 +1,4 @@
-<div class="bg-black text-white d-flex justify-content-center pt-5">
+<div class="text-white d-flex justify-content-center pt-5">
   <div class="container" style="max-width: 90%;">
     <div class="text-center">
       <hr class="text-white my-1" />
@@ -6,7 +6,7 @@
       <hr class="text-white my-1" />
     </div>
 
-    <div class="row row-cols-1 row-cols-md-4 g-4 py-3">
+    <div *ngIf="pilots.length > 0; else noPilots" class="row row-cols-1 row-cols-md-4 g-4 py-3">
       <div *ngFor="let pilot of pilots" class="col">
         <div class="card bg-dark text-white rounded-5 h-100">
           <img [src]="getPilotImage(pilot.id)" class="card-img-top custom-border rounded-top-5"
@@ -17,5 +17,9 @@
         </div>
       </div>
     </div>
+
+    <ng-template #noPilots>
+      <p class="text-warning fw-bold pt-5">Not found pilots for this starship.</p>
+    </ng-template>
   </div>
 </div>

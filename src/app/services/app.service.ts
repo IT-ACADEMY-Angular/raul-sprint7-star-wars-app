@@ -38,7 +38,14 @@ export class AppService {
   }
 
   getFilmsByUrls(urls: string[]): Observable<any[]> {
-    return this.getEntitiesByUrls(urls, 'films');
+    return this.getEntitiesByUrls(urls, 'films').pipe(
+      map((films) =>
+        films.map((film) => ({
+          ...film,
+          episode: `Episode ${film.episode_id}`
+        }))
+      )
+    );
   }
 
   getPilotsByUrls(urls: string[]): Observable<any[]> {

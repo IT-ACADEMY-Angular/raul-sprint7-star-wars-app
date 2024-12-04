@@ -3,6 +3,6 @@
 }
 
 .custom-img-border {
-  border: solid 1px grey;
+  border: solid 1px rgb(128, 128, 128);
   border-right: none;
 }
