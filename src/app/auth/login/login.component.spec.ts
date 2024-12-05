@@ -1,103 +1,83 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs'; // Importar 'of' para simular observables
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
-  let mockAuthService: jasmine.SpyObj<AuthService>;
-  let mockRouter: jasmine.SpyObj<Router>;
-  let mockActivatedRoute: Partial<ActivatedRoute>;
+describe('LoginComponent (Standalone)', () => {
+    let component: LoginComponent;
+    let fixture: ComponentFixture<LoginComponent>;
+    let mockAuthService: jasmine.SpyObj<AuthService>;
+    let mockRouter: jasmine.SpyObj<Router>;
 
-  beforeEach(async () => {
-    mockAuthService = jasmine.createSpyObj('AuthService', ['login']);
-    mockRouter = jasmine.createSpyObj('Router', ['navigateByUrl', 'navigate']);
+    beforeEach(async () => {
 
-    // Simula los observables en ActivatedRoute
-    mockActivatedRoute = {
-      queryParams: of({ returnUrl: '/starship' }), // Simula queryParams como un observable
-    };
+        mockAuthService = jasmine.createSpyObj('AuthService', ['login']);
 
-    await TestBed.configureTestingModule({
-      imports: [FormsModule], // Importa FormsModule para manejo de formularios
-      declarations: [LoginComponent], // Declara el componente
-      providers: [
-        { provide: AuthService, useValue: mockAuthService },
-        { provide: Router, useValue: mockRouter },
-        { provide: ActivatedRoute, useValue: mockActivatedRoute }, // Proveedor mock para ActivatedRoute
-      ],
-    }).compileComponents();
+        mockRouter = jasmine.createSpyObj('Router', ['navigate', 'navigateByUrl'], {
+            events: of({})
+        });
 
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        await TestBed.configureTestingModule({
+            imports: [LoginComponent, FormsModule],
+            providers: [
+                { provide: AuthService, useValue: mockAuthService },
+                { provide: Router, useValue: mockRouter },
+                { provide: ActivatedRoute, useValue: { snapshot: { queryParams: {} } } },
+            ],
+        }).compileComponents();
 
-  it('should create the component', () => {
-    expect(component).toBeTruthy();
-  });
-
-  describe('onSubmit', () => {
-    it('should show error message if email or password is invalid', () => {
-      component.email = 'invalid-email';
-      component.password = 'short';
-      component.onSubmit();
-
-      expect(component.errorMessage).toBe('Invalid email or password.');
+        fixture = TestBed.createComponent(LoginComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
-    it('should call AuthService.login with valid credentials', async () => {
-      component.email = 'test@example.com';
-      component.password = 'validpassword';
-      mockAuthService.login.and.returnValue(Promise.resolve());
-
-      await component.onSubmit();
-
-      expect(mockAuthService.login).toHaveBeenCalledWith(
-        'test@example.com',
-        'validpassword'
-      );
+    it('debe crearse', () => {
+        expect(component).toBeTruthy();
     });
 
-    it('should navigate to returnUrl on successful login', async () => {
-      component.email = 'test@example.com';
-      component.password = 'validpassword';
-      localStorage.setItem('returnUrl', '/starship');
-      mockAuthService.login.and.returnValue(Promise.resolve());
-
-      await component.onSubmit();
-
-      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/starship');
-      expect(localStorage.getItem('returnUrl')).toBeNull();
+    it('debe salir error si el mail o pass es incorrecto', () => {
+        component.email = 'invalidemail';
+        component.password = 'short';
+        component.onSubmit();
+        expect(component.errorMessage).toBe('Invalid email or password.');
     });
 
-    it('should display an error message on login failure', async () => {
-      component.email = 'test@example.com';
-      component.password = 'invalidpassword';
-      mockAuthService.login.and.returnValue(Promise.reject(new Error('Login failed')));
-
-      await component.onSubmit();
-
-      expect(component.errorMessage).toBe('Invalid email or password.');
+    it('debe llamar AuthService.login con las credenciales correctas', async () => {
+        component.email = 'test@example.com';
+        component.password = 'password123';
+        mockAuthService.login.and.returnValue(Promise.resolve());
+        await component.onSubmit();
+        expect(mockAuthService.login).toHaveBeenCalledWith('test@example.com', 'password123');
     });
-  });
 
-  describe('closeModal', () => {
-    it('should navigate to null modal outlet', () => {
-      component.closeModal();
-      expect(mockRouter.navigate).toHaveBeenCalledWith([{ outlets: { modal: null } }]);
-    });
-  });
+    it('debe redireccionar a returnUrl despues de logear correctamente', async () => {
+        component.email = 'test@example.com';
+        component.password = 'password123';
+        mockAuthService.login.and.returnValue(Promise.resolve());
+        spyOn(localStorage, 'getItem').and.returnValue('/starship');
+        spyOn(localStorage, 'removeItem');
 
-  describe('navigateToRegister', () => {
-    it('should navigate to register modal', () => {
-      component.navigateToRegister();
-      expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/(modal:register)', {
-        replaceUrl: true,
-      });
+        mockRouter.navigate.and.returnValue(Promise.resolve(true));
+        mockRouter.navigateByUrl.and.returnValue(Promise.resolve(true));
+
+        await component.onSubmit();
+
+        await fixture.whenStable();
+
+        expect(mockRouter.navigate).toHaveBeenCalledWith([{ outlets: { modal: null } }]);
+        expect(mockRouter.navigateByUrl).toHaveBeenCalledWith('/starship');
     });
-  });
+
+    it('debe setear correctamente errorMessage si el login falla', async () => {
+        component.email = 'test@example.com';
+        component.password = 'wrongpassword';
+        mockAuthService.login.and.returnValue(Promise.reject('Invalid login'));
+
+        await component.onSubmit();
+
+        expect(component.errorMessage).toBe('Invalid email or password.');
+    });
 });

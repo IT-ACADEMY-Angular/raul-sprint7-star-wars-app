@@ -35,6 +35,12 @@ $ npm install
 $ ng serve -o
 ```
 
+5. Para ejecutar los test y comprobar el último nive, ejecutar este comando:
+
+```bash
+$ ng test
+```
+
 ## 💻 Tecnologías y Recursos Utilizados
 
 - ANGULAR
