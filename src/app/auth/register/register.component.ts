@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       await this.authService.register(this.email, this.password);
       this.router.navigate(['/']);
     } catch (error: any) {
-      if (error.message === 'Este email ya está registrado.') {
+      if (error.message === Validations.emailAlreadyInUseMessage) {
         this.emailError = error.message;
       } else {
         this.errorMessage = error.message;
@@ -55,24 +55,24 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   async checkEmailAvailability(): Promise<void> {
 
-    if (this.emailError !== 'Este email ya está registrado.') {
+    if (this.emailError !== Validations.emailAlreadyInUseMessage) {
       this.emailError = null;
     }
 
-    if (!Validations.validateEmail(this.email)) {
-      if (this.emailError !== 'Este email ya está registrado.') {
-        this.emailError = 'Por favor, introduce un email válido.';
-      }
+    const emailValidationError = Validations.validateEmail(this.email);
+    if (emailValidationError) {
+      this.emailError = Validations.emailInvalidError;
       return;
     }
 
     try {
       await this.authService.checkEmailExists(this.email);
+
     } catch (error: any) {
-      if (error.message === 'Este email ya está registrado.') {
+      if (error.message === Validations.emailAlreadyInUseMessage) {
         this.emailError = error.message;
       } else {
-        this.emailError = 'Ocurrió un error al validar el correo.';
+        this.emailError = Validations.emailValidationErrorGeneric;
       }
     }
   }
@@ -82,6 +82,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.secondNameError = null;
     this.emailError = null;
     this.passwordError = null;
+    this.errorMessage = null;
   }
 
   ngOnInit(): void {

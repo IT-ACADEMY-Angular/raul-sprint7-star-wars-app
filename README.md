@@ -3,6 +3,7 @@
 ## 📄 Descripción
 
 Práctica donde el objetivo principal era hacer una App Star Wars con Angular y Bootstrap en maquetación. Utilizando la API de swapi.
+IMPORTANTE: Utilizar --force en el npm install, porque firebase y fire da problemas con Angular v19 de compatibilidad, si lo forzamos, funciona perfectamente.
 
 ## 📋 Requisitos
 
@@ -26,7 +27,7 @@ $ git remote rm origin
 3. Instalar las dependencias con npm 
 
 ```bash
-$ npm install
+$ npm install --force
 ```
 
 4. Inicializar el servidor para ver la web 
